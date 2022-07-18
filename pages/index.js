@@ -1,11 +1,18 @@
 import { useState ,useEffect } from 'react';
 import {data} from '../data/data.js';
+import Modal from '../components/modal.js';
 
 const index = () => {
   const char = [720, 70, 644, 346, 149, 659];
   const [featuredCharacters, setfeaturedCharacters] = useState([]);
   const [searchedCharacters, setsearchedCharacters] = useState([]);
   const [search, setsearch] = useState('');
+  const [selectedCharacter, setselectedCharacter] = useState({
+    id : '',
+    name : '',
+  });
+
+  const [showModal, setshowModal] = useState(false);
 
   useEffect(() => {
     console.log(char.includes(346));
@@ -51,7 +58,14 @@ const index = () => {
             {featuredCharacters.slice(0,6).map((character, index) => {
               return (
               <>
-                <div key={index} className="lg:w-1/6 md:w-1/4 sm:w-2/4 h-64 p-3">
+                <div key={index} className="lg:w-1/6 md:w-1/4 sm:w-2/4 h-64 p-3" onClick={()=>{
+                  setselectedCharacter({
+                    id : character[0],
+                    name : character[1],
+                  });
+                  setshowModal(true);
+                  console.log(showModal);
+                }}>
                   <div className="bg-white rounded-md shadow-md ">
                     <div className="flex justify-center w-full">
                       <div className='flex flex-col justify-end'>
@@ -100,11 +114,8 @@ const index = () => {
         </div>
       </div>
     </div>
-
     
-
-    
-
+    <Modal showModal={showModal} character={selectedCharacter} />
   </>
   )
 }
