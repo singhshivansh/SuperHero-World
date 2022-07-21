@@ -1,6 +1,5 @@
 import { useState ,useEffect } from 'react';
 import {data} from '../data/data.js';
-import Modal from '../components/modal.js';
 
 const Index = () => {
   const char = [720, 70, 644, 346, 149, 659];
@@ -63,8 +62,6 @@ const Index = () => {
                     id : character[0],
                     name : character[1],
                   });
-                  setshowModal(true);
-                  console.log(showModal);
                 }}>
                   <div className="bg-white rounded-md shadow-md ">
                     <div className="flex justify-center w-full">
@@ -115,7 +112,6 @@ const Index = () => {
       </div>
     </div>
     
-    <Modal showModal={showModal} character={selectedCharacter} />
   </>
   )
 }
