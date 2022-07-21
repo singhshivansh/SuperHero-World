@@ -2,7 +2,7 @@ import { useState ,useEffect } from 'react';
 import {data} from '../data/data.js';
 import Modal from '../components/modal.js';
 
-const index = () => {
+const Index = () => {
   const char = [720, 70, 644, 346, 149, 659];
   const [featuredCharacters, setfeaturedCharacters] = useState([]);
   const [searchedCharacters, setsearchedCharacters] = useState([]);
@@ -120,4 +120,4 @@ const index = () => {
   )
 }
 
-export default index;
+export default Index;
