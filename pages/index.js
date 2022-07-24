@@ -106,7 +106,7 @@ const Index = () => {
 
     <div className="flex justify-center ">
       <div className=" w-5/6 ">
-        <h3 className="text-4xl ">SEARCHED CHARACTERS <button onClick={randomSearchedCharacters} className='text-sm bg-slate-500 py-1 px-3 rounded-md text-white'>Refresh</button> </h3>
+        <h3 className="text-4xl ">SEARCHED CHARACTERS <button onClick={randomSearchedCharacters} className='text-sm bg-slate-500 py-1 px-3 rounded-md text-white align-middle'>Refresh</button> </h3>
         <hr className="bg-slate-500 mt-3 h-1"></hr>
         <div className='min-h-full'>
           <div className="flex flex-wrap justify-center " style={{'minHeight' : '500px'}}>
