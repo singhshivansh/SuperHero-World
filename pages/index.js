@@ -14,20 +14,24 @@ const Index = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    console.log(char.includes(346));
     data.filter(item => {
       if(char.includes(parseInt(item[0]))){
         setfeaturedCharacters(prevState => [...prevState, item]);
       }
     })
 
-    var randoms = [...Array(10)].map(() => Math.floor(Math.random() * 700));
+    randomSearchedCharacters();
+  }, []);
+
+  const randomSearchedCharacters = () => {
+    setsearchedCharacters([]);
+    var randoms = [...Array(20)].map(() => Math.floor(Math.random() * 700));
     data.filter(item=>{
       if(randoms.includes(parseInt(item))){
         setsearchedCharacters(prevState => [...prevState, item]);
       }
     })
-  }, []);
+  }
 
 
   const handleChange = (e) => {
@@ -50,13 +54,13 @@ const Index = () => {
     
     const response = await fetch('/api/characters/'+id);
     const data = await response.json();
-    console.log(data);
-    setselectedCharacter(data);
-    
-    setShowModal(true);
-    // console.log("Hekki");
-
-
+    if(data.error){
+      alert(data.error);
+      return
+    }else{
+      setselectedCharacter(data);
+      setShowModal(true);
+    }
   }
 
   
@@ -102,14 +106,14 @@ const Index = () => {
 
     <div className="flex justify-center ">
       <div className=" w-5/6 ">
-        <h3 className="text-4xl ">SEARCHED CHARACTERS</h3>
+        <h3 className="text-4xl ">SEARCHED CHARACTERS <button onClick={randomSearchedCharacters} className='text-sm bg-slate-500 py-1 px-3 rounded-md text-white'>Refresh</button> </h3>
         <hr className="bg-slate-500 mt-3 h-1"></hr>
         <div className='min-h-full'>
           <div className="flex flex-wrap justify-center " style={{'minHeight' : '500px'}}>
             {searchedCharacters.slice(0, 12).map((character, index) => {
               return (
               <>
-                <div key={index} className="lg:w-1/6 md:w-1/4 sm:w-2/4 p-3 h-64">
+                <div key={index} className="lg:w-1/6 md:w-1/4 sm:w-2/4 p-3 h-64 cursor-pointer" onClick={()=>openModal(character[0])}>
                   <div className="bg-white rounded-md shadow-md">
                     <div className="flex justify-center">
                       <img src={character[2]} alt="character" className="h-48" />
@@ -142,10 +146,10 @@ const Index = () => {
                     {selectedCharacter.name}
                   </h3>
                   <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                    <span className=" text-black">
                       X
                     </span>
                   </button>
@@ -153,7 +157,7 @@ const Index = () => {
                 {/*body*/}
                 <div className="relative p-6 flex">
                   <div className='w-1/3 px-1'>
-                    <img src={selectedCharacter.images.lg} alt="character" className="w-80 rounded-md" />  
+                    <img src={selectedCharacter.images ? selectedCharacter.images.lg : null} alt="character" className="w-80 rounded-md" />  
                   </div>
                   <div className='px-1 w-2/3'>
                     <div className='flex justify-between'>
