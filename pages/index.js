@@ -1,6 +1,5 @@
 import { useState ,useEffect } from 'react';
 import {data} from '../data/data.js';
-import Modal from '../components/Modal';
 
 const Index = () => {
   const char = [720, 70, 644, 346, 149, 659];
